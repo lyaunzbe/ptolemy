@@ -1,0 +1,36 @@
+{
+  "name": "ptolemy",
+  "version": "0.0.0",
+  "description": "Retrieve geographic projection information from an EPSG SRID",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/lyaunzbe/ptolemy.git"
+  },
+  "keywords": [
+    "srs",
+    "geo",
+    "srid",
+    "epsg",
+    "projections",
+    "proj4",
+    "datum",
+    "crs"
+  ],
+  "author": "Ben Lyaunzon",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/lyaunzbe/ptolemy/issues"
+  },
+  "homepage": "https://github.com/lyaunzbe/ptolemy",
+  "dependencies": {
+    "needle": "~0.8.2"
+  },
+  "devDependencies": {
+    "should": "~5.2.0",
+    "mocha": "~2.2.1"
+  }
+}
