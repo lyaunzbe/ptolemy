@@ -43,7 +43,6 @@ Ptolemy.get = function(epsg, format, callback) {
   if (validateEPSG(epsg)) {
     if (formatWhiteList.indexOf(format) > -1) {
       var requestURI = EPSG_URI + epsg + '/' + format + '/';
-      console.log(requestURI);
       needle.get(requestURI, function(error, response) {
         if (!error && response.statusCode == 200){
           callback(null, response.body);
