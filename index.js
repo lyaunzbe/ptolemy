@@ -24,7 +24,7 @@ var BASE_URI = 'http://spatialreference.org/',
  */
 
 function validateEPSG (srid) {
-  if (srid.match("[0-9]+") && srid.length === 4) {
+  if (srid.match("[0-9]+") && srid.length < 7) {
     return true;
   } else {
     return false;
