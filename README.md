@@ -4,12 +4,12 @@
 
 ![ptolemy](http://i.imgur.com/OEqohGJ.png)
 
-A simple way to retrieve geographic projection information, in a variety of formats, from an [EPSG SRID](http://en.wikipedia.org/wiki/SRID). Uses the [spatialreference.org](http://spatialreference.org/about/) website.
+A simple way to retrieve geographic projection information, in a variety of formats, from an [EPSG SRID](http://en.wikipedia.org/wiki/SRID). Uses the [epsg.io](http://epsig.io/about/) website.
 
 The following formats for projections are supported:
  
  * proj4
- * ogcwkt
+ * wkt
  * prettywkt (human-readable)
  * esriwkt
  * gml
@@ -39,7 +39,7 @@ ptolemy.get('4326', 'ogcwkt', function (err, resp) {
 
 Credits
 ---------
-[http://spatialreference.org/](http://spatialreference.org/)
+[http://epsg.io/](http://epsg.io/)
 
 Copyright
 ---------

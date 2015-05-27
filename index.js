@@ -1,11 +1,10 @@
 var needle = require('needle');
 
-var BASE_URI = 'http://spatialreference.org/',
-    EPSG_URI = BASE_URI + 'ref/epsg/',
+var BASE_URI = 'http://epsg.io/',
     Ptolemy = {},
     formatWhiteList = [
       'proj4',
-      'ogcwkt',
+      'wkt',
       'prettywkt',
       'esriwkt',
       'gml',
@@ -42,11 +41,11 @@ Ptolemy.get = function(epsg, format, callback) {
   epsg = epsg.toString();
   if (validateEPSG(epsg)) {
     if (formatWhiteList.indexOf(format) > -1) {
-      var requestURI = EPSG_URI + epsg + '/' + format + '/';
-      needle.get(requestURI, function(error, response) {
-        if (!error && response.statusCode == 200){
+      var requestURI = BASE_URI + epsg + '.' + format;
+      needle.get(requestURI, {timeout:4000}, function(error, response) {
+        if (!error && response && response.statusCode == 200){
           callback(null, response.body);
-        } else if (response.statusCode) {
+        } else if (response && response.statusCode) {
           callback(response.statusCode + ' : ' + response.body);
         } else {
           callback(error);
