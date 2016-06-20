@@ -4,17 +4,22 @@ To update: [![Build Status](http://img.shields.io/npm/v/ptolemy.svg?style=flat-s
 
 ![ptolemy](http://i.imgur.com/OEqohGJ.png)
 
-A simple way to retrieve geographic projection information, in a variety of formats, from an [EPSG SRID](http://en.wikipedia.org/wiki/SRID). Uses the [epsg.io](http://epsig.io/about/) database.
+A simple way to retrieve geographic projection information, in a variety of formats, from an [EPSG SRID](http://en.wikipedia.org/wiki/SRID). Uses the [EPSG.io](http://epsig.io/about/) database.
 
 The following formats for projections are supported:
  
+ * prettywkt (Well Known Text as HTML)
+ * wkt (OGC WKT)
+ * esriwkt (ESRI WKT)
+ * gml (OGC GML)
+ * xml
  * proj4
- * wkt
- * prettywkt (human-readable)
- * esriwkt
- * gml
+ * js (Proj4js - always be careful when using eval)
+ * usgs
+ * geoserver
+ * mapfile (MapServer - MAPfile)
  * mapnik
- * [proj4js](http://proj4js.org/) (returns js code - always be careful when using eval)
+ * sql (PostGIS)
 
 Install
 -------
@@ -29,8 +34,12 @@ Example
 ```js
 var ptolemy = require('ptolemy');
 
-ptolemy.get('2004', 'proj4', function (err, resp) {
-  console.log(resp);
+ptolemy.get('2004', 'proj4')
+.then((res) => {
+  console.log(res);
+})
+.catch((e) => {
+	throw e;
 });
 
 // Result
@@ -41,20 +50,24 @@ ptolemy.get('2004', 'proj4', function (err, resp) {
 }
 ```
 
-Development Testing
+Development + Testing
 -------
 ```sh
-# Install library locally
-$ npm install .
+# Develop library locally
+$ npm install
+$ npm link
+# In project that requires Ptolemy
+$ npm link ptolemy # Now points to locally cloned Ptolemy
+
 # Test
 $ npm test
 ```
 
 Credits
 ---------
-[http://epsg.io/](http://epsg.io/)
+[EPSG.io](http://epsg.io/)
 
-Copyright
----------
+License
+-------
 
 [MIT License](LICENSE)
