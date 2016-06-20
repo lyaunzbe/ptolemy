@@ -8,7 +8,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/lyaunzbe/ptolemy.git"
+    "url": "https://github.com/Skycatch/ptolemy.git"
   },
   "keywords": [
     "srs",
@@ -20,14 +20,16 @@
     "datum",
     "crs"
   ],
-  "author": "Ben Lyaunzon",
+  "author": "Skycatch, Inc.",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/lyaunzbe/ptolemy/issues"
+    "url": "https://github.com/Skycatch/ptolemy/issues"
   },
-  "homepage": "https://github.com/lyaunzbe/ptolemy",
+  "homepage": "https://github.com/Skycatch/ptolemy",
   "dependencies": {
-    "needle": "~0.8.2"
+    "bluebird": "^3.4.1",
+    "needle": "^1.0.0",
+    "xml2js": "^0.4.16"
   },
   "devDependencies": {
     "should": "~5.2.0",
