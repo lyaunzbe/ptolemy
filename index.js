@@ -1,11 +1,14 @@
-var needle = require('needle');
-var Bluebird = require('bluebird');
+const needle = require('needle');
+const Bluebird = require('bluebird');
+const InvalidFormatError = require('./error').InvalidFormatError;
+const InvalidSRIDError = require('./error').InvalidSRIDError;
 
 // Promisify Needle.get()
-var promisfiedGet = Bluebird.promisify(needle.get);
+const promisfiedGet = Bluebird.promisify(needle.get);
 
-var BASE_URL = 'http://epsg.io/';
-var Ptolemy = {};
+const BASE_URL = 'http://epsg.io/';
+
+function Ptolemy () {};
 
 /**
  * CURRENTLY SUPPORTED PROJECTION FORMATS:
@@ -46,7 +49,6 @@ function isValidEPSG (srid) {
   }
 }
 
-
 /**
  * Provide an EPSG SRID and the requested projection format you want to retrieve.
  * 
@@ -54,17 +56,17 @@ function isValidEPSG (srid) {
  * @param  {string} info The projection info being requested
  * @return {function} callback Returns projection info requested
  */
-Ptolemy.get = ((epsg, format) => {
+Ptolemy.prototype.get = function (epsg, format) {
 	epsg = epsg.toString();
   var returnObj = {};
   returnObj.epsg = epsg;
 
   if (!isValidEPSG(epsg)) {
-    throw Error('Invalid EPSG SRID.');
+    return Bluebird.reject(new InvalidSRIDError('Invalid EPSG SRID.'));
   }
   
   if (!(formatWhiteList.indexOf(format) > -1)) {
-    throw Error('Invalid format.');
+    return Bluebird.reject(new InvalidFormatError('Invalid format.'));
   }
 	
 	var requestURL = BASE_URL + epsg + '.' + format;
@@ -87,8 +89,9 @@ Ptolemy.get = ((epsg, format) => {
       return returnObj;
     });
 	}).catch((e) => {
+    console.log("threw error");
     throw e;
   });
-});
+}
 
-module.exports = Ptolemy;
+module.exports = new Ptolemy();
