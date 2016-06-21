@@ -75,6 +75,9 @@ Ptolemy.prototype.get = function (epsg, format) {
   
 	return promisfiedGet(requestURL, {timeout: 4000})
 	.then((res) => {
+    if (res.statusCode != 200) {
+      return Bluebird.reject(new Error(res.statusCode));
+    }
     returnObj[format] = res.body;
     return promisfiedGet(nameURL, {timeout: 4000})
     .then((res) => {
@@ -89,7 +92,6 @@ Ptolemy.prototype.get = function (epsg, format) {
       return returnObj;
     });
 	}).catch((e) => {
-    console.log("threw error");
     throw e;
   });
 }

@@ -28,7 +28,7 @@ describe('Basic Usage', function () {
 
   describe('when non-existent epsg srid is passed', function () {
     this.timeout(5000);
-    it('returns a 404 error', function (done) {
+    it('returns an error', function (done) {
       ptolemy.get('9999', 'wkt')
       .catch((e) => {
         should.exist(e);

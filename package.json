@@ -28,7 +28,8 @@
   "homepage": "https://github.com/Skycatch/ptolemy",
   "dependencies": {
     "bluebird": "^3.4.1",
-    "needle": "^1.0.0"
+    "needle": "^1.0.0",
+    "xml2js": "^0.4.16"
   },
   "devDependencies": {
     "should": "~5.2.0",
