@@ -77,7 +77,13 @@ Ptolemy.get = ((epsg, format) => {
     return promisfiedGet(nameURL, {timeout: 4000})
     .then((res) => {
       // Parse XML for name
-      returnObj.name = res.body["gml:ProjectedCRS"]["gml:srsName"];
+      try {
+        returnObj.name = res.body["gml:ProjectedCRS"]["gml:srsName"];
+      }
+      catch (e) {
+        returnObj.name = res.body["gml:GeographicCRS"]["gml:srsName"];
+      }
+
       return returnObj;
     });
 	}).catch((e) => {

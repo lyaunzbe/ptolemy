@@ -39,7 +39,7 @@ ptolemy.get('2004', 'proj4')
   console.log(res);
 })
 .catch((e) => {
-	throw e;
+  throw e;
 });
 
 // Result
