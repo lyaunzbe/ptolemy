@@ -1,6 +1,6 @@
 # ptolemy
 [![Build Status](http://img.shields.io/travis/Skycatch/ptolemy.svg?style=flat-square)](https://travis-ci.org/Skycatch/ptolemy)
-To update: [![Build Status](http://img.shields.io/npm/v/ptolemy.svg?style=flat-square)](https://www.npmjs.org/package/ptolemy)
+[![Build Status](http://img.shields.io/npm/v/ptolemy.svg?style=flat-square)](https://www.npmjs.org/package/ptolemy)
 
 ![ptolemy](http://i.imgur.com/OEqohGJ.png)
 
