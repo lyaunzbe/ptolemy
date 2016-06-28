@@ -8,7 +8,7 @@ const promisfiedGet = Bluebird.promisify(needle.get);
 
 const BASE_URL = 'http://epsg.io/';
 
-function Ptolemy () {};
+function Ptolemy() {};
 
 /**
  * CURRENTLY SUPPORTED PROJECTION FORMATS:
@@ -41,7 +41,7 @@ var formatWhiteList = [
 ];
 
 // UTIL FUNCTIONS
-function isValidEPSG (srid) {
+function isValidEPSG(srid) {
   if (srid.match("[0-9]+") && srid.length < 7) {
     return true;
   } else {
@@ -56,44 +56,47 @@ function isValidEPSG (srid) {
  * @param  {string} info The projection info being requested
  * @return {function} callback Returns projection info requested
  */
-Ptolemy.prototype.get = function (epsg, format) {
-	epsg = epsg.toString();
+Ptolemy.prototype.get = function(epsg, format) {
+  epsg = epsg.toString();
   var returnObj = {};
   returnObj.epsg = epsg;
 
   if (!isValidEPSG(epsg)) {
     return Bluebird.reject(new InvalidSRIDError('Invalid EPSG SRID.'));
   }
-  
+
   if (!(formatWhiteList.indexOf(format) > -1)) {
     return Bluebird.reject(new InvalidFormatError('Invalid format.'));
   }
-	
-	var requestURL = BASE_URL + epsg + '.' + format;
-  // Note: We parse the SRID's XML to get the Site Name (avoids scraping)
-	var nameURL = BASE_URL + epsg + '.xml';
-  
-	return promisfiedGet(requestURL, {timeout: 4000})
-	.then((res) => {
-    if (res.statusCode != 200) {
-      return Bluebird.reject(new Error(res.statusCode));
-    }
-    returnObj[format] = res.body;
-    return promisfiedGet(nameURL, {timeout: 4000})
-    .then((res) => {
-      // Parse XML for name
-      try {
-        returnObj.name = res.body["gml:ProjectedCRS"]["gml:srsName"];
-      }
-      catch (e) {
-        returnObj.name = res.body["gml:GeographicCRS"]["gml:srsName"];
-      }
 
-      return returnObj;
+  var requestURL = BASE_URL + epsg + '.' + format;
+  // Note: We parse the SRID's XML to get the Site Name (avoids scraping)
+  var nameURL = BASE_URL + epsg + '.xml';
+
+  return promisfiedGet(requestURL, {
+      timeout: 4000
+    })
+    .then((res) => {
+      if (res.statusCode != 200) {
+        return Bluebird.reject(new Error(res.statusCode));
+      }
+      returnObj[format] = res.body;
+      return promisfiedGet(nameURL, {
+          timeout: 4000
+        })
+        .then((res) => {
+          // Parse XML for name
+          try {
+            returnObj.name = res.body["gml:ProjectedCRS"]["gml:srsName"];
+          } catch (e) {
+            returnObj.name = res.body["gml:GeographicCRS"]["gml:srsName"];
+          }
+
+          return returnObj;
+        });
+    }).catch((e) => {
+      throw e;
     });
-	}).catch((e) => {
-    throw e;
-  });
 }
 
 module.exports = new Ptolemy();

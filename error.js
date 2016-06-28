@@ -3,25 +3,25 @@
 class ExtendableError extends Error {
   constructor(message) {
     super();
-    this.message = message; 
+    this.message = message;
     this.stack = (new Error(message)).stack;
     this.name = this.constructor.name;
   }
-}    
+}
 
 class InvalidSRIDError extends ExtendableError {
-  constructor(m) {   
+  constructor(m) {
     super(m);
   }
 }
 
 class InvalidFormatError extends ExtendableError {
-  constructor(m) {   
+  constructor(m) {
     super(m);
   }
 }
 
 module.exports = {
-	InvalidSRIDError: InvalidSRIDError,
-	InvalidFormatError: InvalidFormatError
+  InvalidSRIDError: InvalidSRIDError,
+  InvalidFormatError: InvalidFormatError
 };
