@@ -7,12 +7,11 @@
 A simple way to retrieve geographic projection information, in a variety of formats, from an [EPSG SRID](http://en.wikipedia.org/wiki/SRID). Uses the [EPSG.io](http://epsig.io/about/) database.
 
 The following formats for projections are supported:
- 
+
  * prettywkt (Well Known Text as HTML)
  * wkt (OGC WKT)
  * esriwkt (ESRI WKT)
  * gml (OGC GML)
- * xml
  * proj4
  * js (Proj4js - always be careful when using eval)
  * usgs

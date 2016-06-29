@@ -31,7 +31,6 @@ var formatWhiteList = [
   'wkt',
   'esriwkt',
   'gml',
-  'xml',
   'proj4',
   'js',
   'usgs',
