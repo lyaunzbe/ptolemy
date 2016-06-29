@@ -21,7 +21,14 @@ class InvalidFormatError extends ExtendableError {
   }
 }
 
+class StatusCodeError extends ExtendableError {
+  constructor(m) {
+    super(m);
+  }
+}
+
 module.exports = {
   InvalidSRIDError: InvalidSRIDError,
-  InvalidFormatError: InvalidFormatError
+  InvalidFormatError: InvalidFormatError,
+  StatusCodeError: StatusCodeError
 };

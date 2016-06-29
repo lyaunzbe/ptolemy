@@ -2,6 +2,7 @@ const needle = require('needle');
 const Bluebird = require('bluebird');
 const InvalidFormatError = require('./error').InvalidFormatError;
 const InvalidSRIDError = require('./error').InvalidSRIDError;
+const StatusCodeError = require('./error').StatusCodeError;
 
 // Promisify Needle.get()
 const promisfiedGet = Bluebird.promisify(needle.get);
@@ -51,7 +52,7 @@ function isValidEPSG(srid) {
 
 /**
  * Provide an EPSG SRID and the requested projection format you want to retrieve.
- * 
+ *
  * @param  {string or number} epsg The EPSG SRID
  * @param  {string} info The projection info being requested
  * @return {function} callback Returns projection info requested
@@ -78,7 +79,7 @@ Ptolemy.prototype.get = function(epsg, format) {
     })
     .then((res) => {
       if (res.statusCode != 200) {
-        return Bluebird.reject(new Error(res.statusCode));
+        return Bluebird.reject(new StatusCodeError(res.statusCode + ': ' + res.statusMessage));
       }
       returnObj[format] = res.body;
       return promisfiedGet(nameURL, {
