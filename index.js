@@ -9,7 +9,7 @@ const promisfiedGet = Bluebird.promisify(needle.get);
 
 const BASE_URL = 'http://epsg.io/';
 
-function Ptolemy() {};
+function Ptolemy() {}
 
 /**
  * CURRENTLY SUPPORTED PROJECTION FORMATS:
@@ -43,7 +43,7 @@ var formatWhiteList = [
 
 // UTIL FUNCTIONS
 function isValidEPSG(srid) {
-  if (srid.match("[0-9]+") && srid.length < 7) {
+  if (srid.match('[0-9]+') && srid.length < 7) {
     return true;
   } else {
     return false;
@@ -55,7 +55,7 @@ function isValidEPSG(srid) {
  *
  * @param  {string or number} epsg The EPSG SRID
  * @param  {string} info The projection info being requested
- * @return {function} callback Returns projection info requested
+ * @return {function} returnObj  Returns projection info requested
  */
 Ptolemy.prototype.get = function(epsg, format) {
   epsg = epsg.toString();
@@ -75,29 +75,29 @@ Ptolemy.prototype.get = function(epsg, format) {
   var nameURL = BASE_URL + epsg + '.xml';
 
   return promisfiedGet(requestURL, {
+    timeout: 4000
+  })
+  .then((res) => {
+    if (res.statusCode !== 200) {
+      return Bluebird.reject(new StatusCodeError(res.statusCode + ': ' + res.statusMessage));
+    }
+    returnObj[format] = res.body;
+    return promisfiedGet(nameURL, {
       timeout: 4000
     })
     .then((res) => {
-      if (res.statusCode != 200) {
-        return Bluebird.reject(new StatusCodeError(res.statusCode + ': ' + res.statusMessage));
+      // Parse XML for name
+      try {
+        returnObj.name = res.body['gml:ProjectedCRS']['gml:srsName'];
+      } catch (e) {
+        returnObj.name = res.body['gml:GeographicCRS']['gml:srsName'];
       }
-      returnObj[format] = res.body;
-      return promisfiedGet(nameURL, {
-          timeout: 4000
-        })
-        .then((res) => {
-          // Parse XML for name
-          try {
-            returnObj.name = res.body["gml:ProjectedCRS"]["gml:srsName"];
-          } catch (e) {
-            returnObj.name = res.body["gml:GeographicCRS"]["gml:srsName"];
-          }
 
-          return returnObj;
-        });
-    }).catch((e) => {
-      throw e;
+      return returnObj;
     });
-}
+  }).catch((e) => {
+    throw e;
+  });
+};
 
 module.exports = new Ptolemy();
