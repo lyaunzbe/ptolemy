@@ -3,6 +3,7 @@ const Bluebird = require('bluebird');
 const InvalidFormatError = require('./error').InvalidFormatError;
 const InvalidSRIDError = require('./error').InvalidSRIDError;
 const StatusCodeError = require('./error').StatusCodeError;
+const NameError = require('./error').NameError;
 
 // Promisify Needle.get()
 const promisfiedGet = Bluebird.promisify(needle.get);
@@ -30,7 +31,6 @@ var formatWhiteList = [
   'prettywkt',
   'wkt',
   'esriwkt',
-  'gml',
   'proj4',
   'js',
   'usgs',
@@ -86,10 +86,14 @@ Ptolemy.prototype.get = function(epsg, format) {
     })
     .then((res) => {
       // Parse XML for name
-      try {
+      if (res.body['gml:ProjectedCRS']) {
         returnObj.name = res.body['gml:ProjectedCRS']['gml:srsName'];
-      } catch (e) {
+      }
+      else if (res.body['gml:GeographicCRS']) {
         returnObj.name = res.body['gml:GeographicCRS']['gml:srsName'];
+      }
+      else {
+        return Bluebird.reject(new NameError('Request projection doesn\'t support requested format.'));
       }
 
       return returnObj;
