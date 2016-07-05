@@ -37,7 +37,7 @@ var formatWhiteList = [
   'geoserver',
   'mapfile',
   'mapnik',
-  'sql'
+  'sql',
 ];
 
 // UTIL FUNCTIONS
@@ -57,6 +57,7 @@ function isValidEPSG(srid) {
  * @return {function} returnObj  Returns projection info requested
  */
 Ptolemy.prototype.get = function(epsg, format) {
+  format = format.toLowerCase();
   epsg = epsg.toString();
   var returnObj = {};
   returnObj.epsg = epsg;
@@ -72,10 +73,11 @@ Ptolemy.prototype.get = function(epsg, format) {
   var requestURL = BASE_URL + epsg + '.' + format;
   // Note: We parse the SRID's XML to get the Site Name (avoids scraping)
   var nameURL = BASE_URL + epsg + '.xml';
-
-  return promisfiedGet(requestURL, {
+  var opts = {
     timeout: 4000
-  })
+  };
+
+  return promisfiedGet(requestURL, opts)
   .then((res) => {
     if (res.statusCode !== 200) {
       return Bluebird.reject(new StatusCodeError(res.statusCode + ': ' + res.statusMessage));
@@ -93,7 +95,7 @@ Ptolemy.prototype.get = function(epsg, format) {
         returnObj.name = res.body['gml:GeographicCRS']['gml:srsName'];
       }
       else {
-        return Bluebird.reject(new NameError('Request projection doesn\'t support requested format.'));
+        return Bluebird.reject(new NameError('Projection doesn\'t support requested format.'));
       }
 
       return returnObj;
