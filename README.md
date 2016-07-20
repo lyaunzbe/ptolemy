@@ -1,20 +1,23 @@
 # ptolemy
-[![Build Status](http://img.shields.io/travis/lyaunzbe/ptolemy.svg?style=flat-square)](https://travis-ci.org/lyaunzbe/ptolemy)
+[![Build Status](http://img.shields.io/travis/Skycatch/ptolemy.svg?style=flat-square)](https://travis-ci.org/Skycatch/ptolemy)
 [![Build Status](http://img.shields.io/npm/v/ptolemy.svg?style=flat-square)](https://www.npmjs.org/package/ptolemy)
 
 ![ptolemy](http://i.imgur.com/OEqohGJ.png)
 
-A simple way to retrieve geographic projection information, in a variety of formats, from an [EPSG SRID](http://en.wikipedia.org/wiki/SRID). Uses the [epsg.io](http://epsig.io/about/) website.
+A simple way to retrieve geographic projection information, in a variety of formats, from an [EPSG SRID](http://en.wikipedia.org/wiki/SRID). Uses the [EPSG.io](http://epsig.io/about/) database.
 
-The following formats for projections are supported:
- 
+The following formats for projections are supported (**Disclaimer**: Not all SRIDs will support every format.):
+
+ * prettywkt (Well Known Text as HTML)
+ * wkt (OGC WKT)
+ * esriwkt (ESRI WKT)
  * proj4
- * wkt
- * prettywkt (human-readable)
- * esriwkt
- * gml
+ * js (Proj4js - always be careful when using eval)
+ * usgs
+ * geoserver
+ * mapfile (MapServer - MAPfile)
  * mapnik
- * [proj4js](http://proj4js.org/) (returns js code - always be careful when using eval)
+ * sql (PostGIS)
 
 Install
 -------
@@ -23,25 +26,46 @@ Install
 $ npm install ptolemy
 ```
 
-Usage
+Example
 -----
 
 ```js
 var ptolemy = require('ptolemy');
 
-ptolemy.get('4326', 'ogcwkt', function (err, resp) {
-  console.log(resp);
+ptolemy.get('2004', 'proj4')
+.then((res) => {
+  console.log(res);
+})
+.catch((e) => {
+  throw e;
 });
 
 // Result
-'GEOGCS["WGS 84",DATUM["WGS_1984",SPHEROID["WGS 84",6378137,298.257223563,AUTHORITY["EPSG","7030"]],AUTHORITY["EPSG","6326"]],PRIMEM["Greenwich",0,AUTHORITY["EPSG","8901"]],UNIT["degree",0.01745329251994328,AUTHORITY["EPSG","9122"]],AUTHORITY["EPSG","4326"]]'
+{
+  "epsg": 2004,
+  "name": "Montserrat 1958 / British West Indies Grid",
+  "proj4": "+proj=tmerc +lat_0=0 +lon_0=-62 +k=0.9995000000000001 +x_0=400000 +y_0=0 +ellps=clrk80 +towgs84=174,359,365,0,0,0,0 +units=m +no_defs"
+}
+```
+
+Development + Testing
+-------
+```sh
+# Develop library locally
+$ npm install
+$ npm link
+# In project that requires Ptolemy
+$ npm link ptolemy # Now points to locally cloned Ptolemy
+
+# Test
+$ npm test
 ```
 
 Credits
 ---------
-[http://epsg.io/](http://epsg.io/)
+[EPSG.io](http://epsg.io/)
 
-Copyright
----------
+License
+-------
 
-(c) 2015 Ben Lyaunzon Licensed under the MIT license.
+[MIT License](LICENSE)
