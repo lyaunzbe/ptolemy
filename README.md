@@ -30,9 +30,9 @@ Example
 -----
 
 ```js
-var ptolemy = require('ptolemy');
+var Ptolemy = require('ptolemy');
 
-ptolemy.get('2004', 'proj4')
+Ptolemy.get('epsg:2004', 'proj4')
 .then((res) => {
   console.log(res);
 })
@@ -42,7 +42,7 @@ ptolemy.get('2004', 'proj4')
 
 // Result
 {
-  "epsg": 2004,
+  "crs": "epsg:2004",
   "name": "Montserrat 1958 / British West Indies Grid",
   "proj4": "+proj=tmerc +lat_0=0 +lon_0=-62 +k=0.9995000000000001 +x_0=400000 +y_0=0 +ellps=clrk80 +towgs84=174,359,365,0,0,0,0 +units=m +no_defs"
 }

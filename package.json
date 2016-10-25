@@ -4,7 +4,7 @@
   "description": "Retrieve geographic projection information from an EPSG SRID",
   "main": "index.js",
   "scripts": {
-    "test": "mocha test"
+    "test": "lab -r console"
   },
   "repository": {
     "type": "git",
@@ -27,12 +27,12 @@
   },
   "homepage": "https://github.com/Skycatch/ptolemy",
   "dependencies": {
-    "bluebird": "^3.4.1",
     "needle": "^1.0.0",
     "xml2js": "^0.4.16"
   },
   "devDependencies": {
-    "should": "~5.2.0",
-    "mocha": "~2.2.1"
+    "code": "^4.0.0",
+    "eslint-bootstrap": "github:skycatch/eslint-bootstrap",
+    "lab": "^11.1.0"
   }
 }
