@@ -11,6 +11,7 @@ const expect = Code.expect;
 
 const wgs84_ogcwkt = 'GEOGCS["WGS 84",DATUM["WGS_1984",SPHEROID["WGS 84",6378137,298.257223563,AUTHORITY["EPSG","7030"]],AUTHORITY["EPSG","6326"]],PRIMEM["Greenwich",0,AUTHORITY["EPSG","8901"]],UNIT["degree",0.0174532925199433,AUTHORITY["EPSG","9122"]],AUTHORITY["EPSG","4326"]]';
 const wgs84_name = 'WGS 84';
+const wgs84_proj4 = '+proj=longlat +datum=WGS84 +no_defs';
 
 describe('Ptolemy Basic Usage', function () {
   describe('when invalid projection format is passed', function () {
@@ -54,12 +55,22 @@ describe('Ptolemy Basic Usage', function () {
   });
 
   describe('when valid epsg srid and projection format is passed', function () {
-    it('returns the proper projection and site name in the format requested', {timeout: 5000}, function (done) {
+    it('returns the proper projection and site name in wkt format', {timeout: 5000}, function (done) {
       Ptolemy.get('epsg:4326', 'wkt', function (err, res) {
         expect(err).to.not.exist();
 
         expect(res.crs).to.equal('epsg:4326');
         expect(res.wkt).to.equal(wgs84_ogcwkt);
+        expect(res.name).to.equal(wgs84_name);
+        done();
+      });
+    });
+
+    it('returns the proper projection and site name in proj format', {timeout: 5000}, function (done) {
+      Ptolemy.get('EPSG:4326', 'proj4', function (err, res) {
+        expect(err).to.not.exist();
+        expect(res.crs).to.equal('epsg:4326');
+        expect(res.proj4).to.equal(wgs84_proj4);
         expect(res.name).to.equal(wgs84_name);
         done();
       });
