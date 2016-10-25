@@ -1,6 +1,6 @@
 {
   "name": "ptolemy",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Retrieve geographic projection information from an EPSG SRID",
   "main": "index.js",
   "scripts": {
