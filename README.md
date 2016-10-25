@@ -61,9 +61,15 @@ $ npm link ptolemy # Now points to locally cloned Ptolemy
 $ npm test
 ```
 
-Credits
----------
-[EPSG.io](http://epsg.io/)
+Resources for CRS Info
+
+- http://spatialreference.org/
+- http://epsg.io/
+- http://www.epsg-registry.org for example http://www.epsg-registry.org/export.htm?wkt=urn:ogc:def:crs:EPSG::6675
+
+> NOTE: The data from http://www.epsg-registry.org cannot be used without modification in Pix4D.
+
+- https://github.com/JuliaGeo/Proj4.jl/blob/master/gen/epsg - a good place to check proj4 values
 
 License
 -------
