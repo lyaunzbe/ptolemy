@@ -30,6 +30,25 @@ Example
 -----
 
 ```js
+const ptolemy = new Ptolemy({
+  adapters: [{name: 'skycatch'}, {name: 'epsgio'}]
+});
+
+ptolemy.getProjection('epsg:2004', 'proj4')
+.then((res) => {
+  console.log(res);
+})
+.catch((e) => {
+  throw e;
+});
+```
+
+- *adapters* `array` specify the source adapters that you want to use.
+  - when specifying multiple adapters, ALL adapters will be queried. However only one of the responses will be returned because it is assumed that the projection information will be the same regardless of the source.
+  - the `skycatch adapter` is incomplete and only uses hardcoded values right now
+
+### THE FOLLOWING USAGE IS DEPRECATED
+```js
 var Ptolemy = require('ptolemy');
 
 Ptolemy.get('epsg:2004', 'proj4')
