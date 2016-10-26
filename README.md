@@ -41,13 +41,22 @@ ptolemy.getProjection('epsg:2004', 'proj4')
 .catch((e) => {
   throw e;
 });
+
+// Result
+{
+  "crs": "epsg:2004",
+  "name": "Montserrat 1958 / British West Indies Grid",
+  "proj4": "+proj=tmerc +lat_0=0 +lon_0=-62 +k=0.9995000000000001 +x_0=400000 +y_0=0 +ellps=clrk80 +towgs84=174,359,365,0,0,0,0 +units=m +no_defs"
+}
 ```
 
-- *adapters* `array` specify the source adapters that you want to use.
+### Ptolemy Configuration
+
+- **adapters** `array` specify the source adapters that you want to use.
   - when specifying multiple adapters, ALL adapters will be queried. However only one of the responses will be returned because it is assumed that the projection information will be the same regardless of the source.
   - the `skycatch adapter` is incomplete and only uses hardcoded values right now
 
-### THE FOLLOWING USAGE IS DEPRECATED
+## THE FOLLOWING USAGE IS DEPRECATED
 ```js
 var Ptolemy = require('ptolemy');
 
