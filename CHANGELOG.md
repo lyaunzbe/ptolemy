@@ -1,5 +1,8 @@
 # Changelog
 
+### v1.1.2
+- Fix typo
+
 ### v1.1.1
 - Add source information to returned projection data
 
