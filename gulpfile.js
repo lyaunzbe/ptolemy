@@ -1,17 +1,17 @@
 'use strict';
 
-const gulp = require('gulp');
-const rename = require('gulp-rename');
-const source = require('vinyl-source-stream');
-const browserify = require('browserify');
-const derequire = require('gulp-derequire');
-const watchify = require('watchify');
-const babelify = require('babelify');
-const notify = require('gulp-notify');
+const Gulp = require('gulp');
+const Rename = require('gulp-rename');
+const Source = require('vinyl-source-stream');
+const Browserify = require('browserify');
+const Derequire = require('gulp-derequire');
+const Watchify = require('watchify');
+const Babelify = require('babelify');
+const Notify = require('gulp-notify');
 
 
 function compile (watch) {
-  let bundler = browserify({
+  let bundler = Browserify({
     // Required watchify args
     cache: {}, packageCache: {},
     // Specify the entry point of your app
@@ -23,7 +23,7 @@ function compile (watch) {
   });
 
   bundler
-  .transform(babelify.configure({
+  .transform(Babelify.configure({
     presets: ['latest']
   }))
   .transform('debowerify');
@@ -34,7 +34,7 @@ function compile (watch) {
       .on('error', function() {
         let args = Array.prototype.slice.call(arguments);
         // Send error to notification center with gulp-notify
-        notify.onError({
+        Notify.onError({
           title: 'Compile Error',
           message: '<%= error.message %>'
         }).apply(this, args);
@@ -42,14 +42,14 @@ function compile (watch) {
         // Keep gulp from hanging on this task
         this.emit('end');
       })
-      .pipe(source('./index.js'))
-      .pipe(derequire())
-      .pipe(rename('ptolemy.js'))
-      .pipe(gulp.dest('dist/'))
+      .pipe(Source('./index.js'))
+      .pipe(Derequire())
+      .pipe(Rename('ptolemy.js'))
+      .pipe(Gulp.dest('dist/'))
   };
 
   if (watch) {
-    bundler = watchify(bundler)
+    bundler = Watchify(bundler)
       .on('update', bundle);
 
     return bundle();
@@ -62,7 +62,7 @@ function watch() {
   return compile(true);
 };
 
-gulp.task('build', function () { return compile(); });
-gulp.task('watch', function() { return watch(); });
+Gulp.task('build', function () { return compile(); });
+Gulp.task('watch', function() { return watch(); });
 
 
