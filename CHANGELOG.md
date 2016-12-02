@@ -1,5 +1,8 @@
 # Changelog
 
+### v1.2.0
+- Ported to work both on the client side as well as server side
+
 ### v1.1.2
 - Fix typo
 

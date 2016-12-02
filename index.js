@@ -1,3 +1,4 @@
 'use strict';
 
-module.exports = require('./lib/ptolemy');
+// In browsers, load the bundled version
+module.exports = process.browser ? require('./dist/ptolemy') : require('./lib/ptolemy');
