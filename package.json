@@ -3,6 +3,9 @@
   "version": "1.1.2",
   "description": "Retrieve geographic projection information from an EPSG SRID",
   "main": "index.js",
+  "browser": {
+    "index.js": "./dist/ptolemy.js"
+  },
   "scripts": {
     "test": "lab -r console"
   },
