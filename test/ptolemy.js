@@ -2,7 +2,7 @@
 
 const Code = require('code');
 const Lab = require('lab');
-const Ptolemy = require('../');
+const Ptolemy = require('../index');
 
 const lab = exports.lab = Lab.script();
 const describe = lab.describe;

@@ -1,8 +1,11 @@
 {
   "name": "ptolemy",
-  "version": "1.1.2",
+  "version": "1.2.0",
   "description": "Retrieve geographic projection information from an EPSG SRID",
   "main": "index.js",
+  "browser": {
+    "index.js": "./dist/ptolemy.js"
+  },
   "scripts": {
     "test": "lab -r console"
   },
@@ -27,12 +30,23 @@
   },
   "homepage": "https://github.com/Skycatch/ptolemy",
   "dependencies": {
-    "needle": "^1.0.0",
-    "xml2js": "^0.4.16"
+    "needle": "^1.4.2",
+    "xml2js": "^0.4.17"
   },
   "devDependencies": {
+    "babel-preset-latest": "^6.16.0",
+    "babelify": "^7.3.0",
+    "browserify": "^13.1.1",
     "code": "^4.0.0",
+    "debowerify": "^1.5.0",
+    "derequire": "^2.0.3",
     "eslint-bootstrap": "github:skycatch/eslint-bootstrap",
-    "lab": "^11.1.0"
+    "gulp": "^3.9.1",
+    "gulp-derequire": "^2.1.0",
+    "gulp-notify": "^2.2.0",
+    "gulp-rename": "^1.2.2",
+    "lab": "^11.1.0",
+    "vinyl-source-stream": "^1.1.0",
+    "watchify": "^3.7.0"
   }
 }
