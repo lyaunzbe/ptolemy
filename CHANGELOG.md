@@ -1,4 +1,6 @@
 # Changelog
+### v1.2.1
+- Pinned down Needle due to breakage with parsing the xml response
 
 ### v1.2.0
 - Ported to work both on the client side as well as server side
