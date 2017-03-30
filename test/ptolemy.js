@@ -120,7 +120,10 @@ describe('Important coordinate reference systems', function () {
 });
 
 const testCommonCRS = function (crs, expected) {
-  const ptolemy = new Ptolemy();
+  const ptolemy =  new Ptolemy({
+    adapters: [{name: 'epsgio'}],
+    retryCount: 5
+  });
 
   return ptolemy.getProjection(crs, 'wkt')
   .then((res) => {
@@ -132,7 +135,8 @@ const testCommonCRS = function (crs, expected) {
 
 const testCustomCRS = function (crs, expected) {
   const ptolemy = new Ptolemy({
-    adapters: [{name: 'skycatch'}, {name: 'epsgio'}]
+    adapters: [{name: 'skycatch'}, {name: 'epsgio'}],
+    retryCount: 5
   });
 
   return ptolemy.getProjection(crs, 'wkt')
