@@ -8,7 +8,7 @@
   },
   "scripts": {
     "test": "lab -r console",
-	"bundle": "gulp build"
+	"bundle": "gulp build; git commit -am ./dist/ptolemy.js --no-verify;"
   },
   "pre-commit": [ "bundle" ],
   "repository": {
