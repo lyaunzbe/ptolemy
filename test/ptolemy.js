@@ -44,16 +44,6 @@ describe('Ptolemy Basic Usage', function () {
     });
   });
 
-  describe('when unknown crs is passed', () => {
-    it('returns an error', {timeout: 5000}, (done) => {
-      Ptolemy.get('9999', 'wkt', function (err) {
-        expect(err).to.exist();
-        expect(err.constructor.name).to.equal('InvalidResponseError');
-        done();
-      });
-    });
-  });
-
   describe('when valid epsg srid and projection format is passed', function () {
     it('returns the proper projection and site name in wkt format', {timeout: 5000}, function (done) {
       Ptolemy.get('epsg:4326', 'wkt', function (err, res) {
@@ -84,6 +74,13 @@ describe('Important coordinate reference systems', function () {
       return testCommonCRS('EPSG:2450', {
         name: 'JGD2000 / Japan Plane Rectangular CS VIII',
         ogcwkt: 'PROJCS["JGD2000 / Japan Plane Rectangular CS VIII",GEOGCS["JGD2000",DATUM["Japanese_Geodetic_Datum_2000",SPHEROID["GRS 1980",6378137,298.257222101,AUTHORITY["EPSG","7019"]],TOWGS84[0,0,0,0,0,0,0],AUTHORITY["EPSG","6612"]],PRIMEM["Greenwich",0,AUTHORITY["EPSG","8901"]],UNIT["degree",0.0174532925199433,AUTHORITY["EPSG","9122"]],AUTHORITY["EPSG","4612"]],PROJECTION["Transverse_Mercator"],PARAMETER["latitude_of_origin",36],PARAMETER["central_meridian",138.5],PARAMETER["scale_factor",0.9999],PARAMETER["false_easting",0],PARAMETER["false_northing",0],UNIT["metre",1,AUTHORITY["EPSG","9001"]],AUTHORITY["EPSG","2450"]]'
+      });
+    });
+
+    it('returns a local coordinate reference system', {timeout: 5000}, function () {
+      return testCustomCRS('local', {
+        name: 'Arbitrary (m)',
+        ogcwkt: 'LOCAL_CS["Arbitrary (m)",LOCAL_DATUM["Arbitrary datum"],UNIT["meter",1.0,AUTHORITY["EPSG","9001"]]]'
       });
     });
 
