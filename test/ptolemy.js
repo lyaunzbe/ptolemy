@@ -69,18 +69,49 @@ describe('Ptolemy Basic Usage', function () {
 });
 
 describe('Important coordinate reference systems', function () {
+
+  describe('for local coordinate reference systems', function () {
+    it('returns a local coordinate reference system', {timeout: 5000}, function () {
+      return testCustomCRS('local', {
+        name: 'Arbitrary (m)',
+        ogcwkt: 'LOCAL_CS["Arbitrary (m)",LOCAL_DATUM["Arbitrary datum"],UNIT["meter",1.0,AUTHORITY["EPSG","9001"]]]'
+      });
+    });
+
+    it('returns a "arbitrary" coordinate reference system', {timeout: 5000}, function () {
+      return testCustomCRS('Arbitrary', {
+        name: 'Arbitrary (m)',
+        ogcwkt: 'LOCAL_CS["Arbitrary (m)",LOCAL_DATUM["Arbitrary datum"],UNIT["meter",1.0,AUTHORITY["EPSG","9001"]]]'
+      });
+    });
+
+    it('returns a "arbitray (m)" coordinate reference system', {timeout: 5000}, function () {
+      return testCustomCRS('Arbitrary (m)', {
+        name: 'Arbitrary (m)',
+        ogcwkt: 'LOCAL_CS["Arbitrary (m)",LOCAL_DATUM["Arbitrary datum"],UNIT["meter",1.0,AUTHORITY["EPSG","9001"]]]'
+      });
+    });
+
+    it('returns a "arbitray (ft)" coordinate reference system', {timeout: 5000}, function () {
+      return testCustomCRS('Arbitrary (ft)', {
+        name: 'Arbitrary (ft)',
+        ogcwkt: 'LOCAL_CS["Arbitrary (ft)",LOCAL_DATUM["Arbitrary datum"],UNIT["foot",0.3048,AUTHORITY["EPSG","9002"]]]'
+      });
+    });
+
+    it('returns a "arbitray (ftUS)" coordinate reference system', {timeout: 5000}, function () {
+      return testCustomCRS('Arbitrary (ftUS)', {
+        name: 'Arbitrary (ftUS)',
+        ogcwkt: 'LOCAL_CS["Arbitrary (ftUS)",LOCAL_DATUM["Arbitrary datum"],UNIT["US survey foot",0.3048006096012192,AUTHORITY["EPSG","9003"]]]'
+      });
+    });
+  });
+
   describe('for well known coordinate reference systems', function () {
     it('returns EPSG:2450 data', {timeout: 5000}, function () {
       return testCommonCRS('EPSG:2450', {
         name: 'JGD2000 / Japan Plane Rectangular CS VIII',
         ogcwkt: 'PROJCS["JGD2000 / Japan Plane Rectangular CS VIII",GEOGCS["JGD2000",DATUM["Japanese_Geodetic_Datum_2000",SPHEROID["GRS 1980",6378137,298.257222101,AUTHORITY["EPSG","7019"]],TOWGS84[0,0,0,0,0,0,0],AUTHORITY["EPSG","6612"]],PRIMEM["Greenwich",0,AUTHORITY["EPSG","8901"]],UNIT["degree",0.0174532925199433,AUTHORITY["EPSG","9122"]],AUTHORITY["EPSG","4612"]],PROJECTION["Transverse_Mercator"],PARAMETER["latitude_of_origin",36],PARAMETER["central_meridian",138.5],PARAMETER["scale_factor",0.9999],PARAMETER["false_easting",0],PARAMETER["false_northing",0],UNIT["metre",1,AUTHORITY["EPSG","9001"]],AUTHORITY["EPSG","2450"]]'
-      });
-    });
-
-    it('returns a local coordinate reference system', {timeout: 5000}, function () {
-      return testCustomCRS('local', {
-        name: 'Arbitrary (m)',
-        ogcwkt: 'LOCAL_CS["Arbitrary (m)",LOCAL_DATUM["Arbitrary datum"],UNIT["meter",1.0,AUTHORITY["EPSG","9001"]]]'
       });
     });
 
