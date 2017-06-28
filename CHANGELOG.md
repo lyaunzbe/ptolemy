@@ -1,4 +1,12 @@
 # Changelog
+
+## v1.4.1
+- In-memory cache for projections
+
+## v1.3.6 - v1.4.0
+- Fetch skycatch projections from s3
+- Refactoring
+
 ### v1.2.1
 - Pinned down Needle due to breakage with parsing the xml response
 

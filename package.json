@@ -1,6 +1,6 @@
 {
   "name": "@skycatch/ptolemy",
-  "version": "1.4.0",
+  "version": "1.4.1",
   "description": "Retrieve geographic projection information from an EPSG SRID",
   "main": "index.js",
   "browser": {
