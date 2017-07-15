@@ -1,5 +1,8 @@
 # Changelog
 
+## v1.4.2
+- Add cli
+
 ## v1.4.1
 - In-memory cache for projections
 
