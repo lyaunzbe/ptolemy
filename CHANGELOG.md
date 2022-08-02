@@ -1,5 +1,8 @@
 # Changelog
 
+## v1.4.3 
+- Replace epsg.io xml request for json request
+
 ## v1.4.2
 - Add cli
 
